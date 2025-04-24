@@ -1,0 +1,38 @@
+<div class="root flex flex-col h-full">
+  <div class="navbar bg-gray-800">
+    <div class="navbarBrand">
+      <div class="navbarItem px-[15px] py-2">
+        <h1 class="appName hasGradientText text-[1.75rem]">Kanban</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="board flex flex-col flex-grow min-h-0 min-w-0">
+    <div class="boardBar px-[15px] py-2">
+      <p class="boardName text-white text-xl">Board Name</p>
+    </div>
+
+    <div class="boardWrapper flex flex-grow overflow-x-auto">
+      <div class="boardColumns flex flex-grow" cdkDropListGroup>
+        @for(column of board.columns; track column){
+          <div class="eachBoardColum flex flex-col flex-grow m-[50px] p-[25px] min-w-[300px]">
+            <div class="columnTitle">
+              <h2 class="text-xl font-extrabold uppercase mb-5">{{column.name}}</h2>
+            </div>
+
+            <div class="tasksContainer flex-grow"
+            cdkDropList
+            [cdkDropListData]="column.tasks"
+            (cdkDropListDropped)="drop($event)">
+              @for (task of column.tasks; track task) {
+                <div class="task flex py-[15px] px-3 bg-white bord er-b border-[#ddd] rounded-[4px]" cdkDrag>
+                  <p>{{task}}</p>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
